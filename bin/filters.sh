@@ -7,6 +7,7 @@ if [[ -z "$1" ]]; then
 fi
 
 file="$1"
+length="$2"
 
 # Vérifie que le fichier existe
 if [[ ! -f "$file" ]]; then
@@ -14,5 +15,15 @@ if [[ ! -f "$file" ]]; then
     exit 1
 fi
 
-# Filtre les lignes qui contiennent autre chose qu'une lettre minuscule (filtres des noms propres et mots composés)
-grep -E '^[a-zàâäéèêëîïôöùûüç]+$' "$file"
+if [[ -n "$length" && ! "$length" =~ ^[0-9]+$ ]]; then
+    echo "Erreur : la longueur doit être un nombre entier positif"
+    exit 1
+fi
+
+if [[ -n "$length" ]]; then
+    # longueur exactement égale à $length
+    grep -E "^[a-zàâäéèêëîïôöùûüç]{${length}}$" "$file"
+else
+    # longueur >= 5 par défaut
+    grep -E "^[a-zàâäéèêëîïôöùûüç]{5,}$" "$file"
+fi
