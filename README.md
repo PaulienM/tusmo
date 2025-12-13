@@ -1,5 +1,12 @@
 # TUSMO
 
+## Instructions
+
+Lancer l'application en mode dev
+```bash
+npm run dev
+```
+
 ## Les mots
 
 Les mots ont été récupérés sur le site https://www.freelang.com/dictionnaire/dic-francais.php.
