@@ -18,14 +18,14 @@
 </template>
 
 <script setup lang="ts">
-import {Guess} from "../domain/Guess";
-import {GuessLetterStatusEnum} from "../domain/GuessLetterStatusEnum";
+import type { Guess } from "../domain/Guess";
+import { GuessLetterStatusEnum } from "../domain/GuessLetterStatusEnum";
 
 defineProps<{
-  guess?: Guess;
-  length: number;
-  active: boolean;
-  newGuess: string;
+	guess?: Guess;
+	length: number;
+	active: boolean;
+	newGuess: string;
 }>();
 </script>
 

@@ -1,21 +1,21 @@
-import words from '../assets/filtered-words.json'
+import words from "../assets/filtered-words.json";
 
 export const useWordList = () => {
-    const getWordByIndex = (index: number): string => {
-        const result = words[index];
-        if (typeof result !== 'string') {
-            throw new Error(`Le mot à l'index ${index} est introuvable`);
-        }
+	const getWordByIndex = (index: number): string => {
+		const result = words[index];
+		if (typeof result !== "string") {
+			throw new Error(`Le mot à l'index ${index} est introuvable`);
+		}
 
-        return result;
-    }
+		return result;
+	};
 
-    const getWordByRandomNumber = (random: number): string => {
-        return getWordByIndex(Math.floor(random * (words.length - 1)))
-    }
+	const getWordByRandomNumber = (random: number): string => {
+		return getWordByIndex(Math.floor(random * (words.length - 1)));
+	};
 
-    return {
-        getWordByIndex,
-        getWordByRandomNumber,
-    };
-}
+	return {
+		getWordByIndex,
+		getWordByRandomNumber,
+	};
+};
