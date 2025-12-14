@@ -7640,6 +7640,7 @@ Ecosse
 écouté
 écouter
 écoutes
+écouteur
 écrabouiller
 écran
 écrans

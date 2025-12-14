@@ -1,4 +1,5 @@
 import {GameStatusEnum} from "./GameStatusEnum";
+import words from '../assets/filtered-words.json'
 
 export class Game {
     static MAX_ATTEMPTS = 6;
@@ -16,6 +17,9 @@ export class Game {
         guess = guess.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         guess = guess.toLowerCase();
         if (this.solution[0] !== guess[0] || this.solution.length !== guess.length) {
+            return;
+        }
+        if (words.indexOf(guess) === -1) {
             return;
         }
         this.guesses.push(guess);

@@ -48,4 +48,8 @@ describe('Test de la validation des essais', () => {
         expect(game.guesses).length(1);
         expect(game.guesses).contain('sabotage');
     })
+    test('Seul les mots de la liste sont acceptés', () => {
+        const game = new Game('solution', ['ssssssss']);
+        expect(game.guesses).length(0);
+    })
 })
