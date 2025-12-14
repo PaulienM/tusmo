@@ -18,14 +18,14 @@ export class Game {
         guesses.forEach((guess) => this.addGuess(guess));
     }
 
-    public addGuess(guess: string): void {
+    public addGuess(guess: string): boolean {
         guess = guess.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         guess = guess.toLowerCase();
         if (this.solution[0] !== guess[0] || this.solution.length !== guess.length) {
-            return;
+            return false;
         }
         if (words.indexOf(guess) === -1) {
-            return;
+            return false;
         }
         const guessObject = new Guess(this.solution, guess);
         this.guesses.push(guessObject);
@@ -45,5 +45,7 @@ export class Game {
         if (guess === this.solution) {
             this.status = GameStatusEnum.WON;
         }
+
+        return true;
     }
 }
