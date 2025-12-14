@@ -13,6 +13,10 @@ export class Game {
     }
 
     public addGuess(guess: string): void {
+        guess = guess.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        if (this.solution[0] !== guess[0] || this.solution.length !== guess.length) {
+            return;
+        }
         this.guesses.push(guess);
         this.status = GameStatusEnum.IN_PROGRESS;
         if (this.guesses.length >= Game.MAX_ATTEMPTS) {

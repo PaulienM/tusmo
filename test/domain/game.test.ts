@@ -23,3 +23,24 @@ describe('Test des status de la classe Game', () => {
         expect(game.status).toBe(GameStatusEnum.LOST);
     })
 })
+
+describe('Test de la validation des essais', () => {
+    test('Essai non pris en compte si première lettre différente', () => {
+        const game = new Game('solution', ['sabotage', 'rutilant']);
+        expect(game.guesses).length(1);
+        expect(game.guesses).contain('sabotage');
+    })
+    test('Essai non pris en compte si la taille est différente de celle de la solution', () => {
+        const game = new Game('solution', ['resolu', 'solutions']);
+        expect(game.guesses).length(0);
+    })
+    test('Suppression des accents des essais', () => {
+        const game = new Game('solution', ['scélérat', 'soupçons']);
+        expect(game.guesses).contain('scelerat');
+        expect(game.guesses).contain('soupcons');
+    })
+    test('L\'accent sur une première lettre est valide', () => {
+        const game = new Game('enseigne', ['écouteur']);
+        expect(game.guesses).length(1);
+    })
+})
