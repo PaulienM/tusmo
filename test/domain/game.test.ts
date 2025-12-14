@@ -28,7 +28,7 @@ describe('Test de la validation des essais', () => {
     test('Essai non pris en compte si première lettre différente', () => {
         const game = new Game('solution', ['sabotage', 'rutilant']);
         expect(game.guesses).length(1);
-        expect(game.guesses).contain('sabotage');
+        expect(game.guesses[0].value).toBe('sabotage');
     })
     test('Essai non pris en compte si la taille est différente de celle de la solution', () => {
         const game = new Game('solution', ['resolu', 'solutions']);
@@ -36,8 +36,8 @@ describe('Test de la validation des essais', () => {
     })
     test('Suppression des accents des essais', () => {
         const game = new Game('solution', ['scélérat', 'soupçons']);
-        expect(game.guesses).contain('scelerat');
-        expect(game.guesses).contain('soupcons');
+        expect(game.guesses[0].value).toBe('scelerat');
+        expect(game.guesses[1].value).toBe('soupcons');
     })
     test('L\'accent sur une première lettre est valide', () => {
         const game = new Game('enseigne', ['écouteur']);
@@ -46,7 +46,7 @@ describe('Test de la validation des essais', () => {
     test('Tous les caractères sont mis en minuscule', () => {
         const game = new Game('solution', ['SaboTage']);
         expect(game.guesses).length(1);
-        expect(game.guesses).contain('sabotage');
+        expect(game.guesses[0].value).toBe('sabotage');
     })
     test('Seul les mots de la liste sont acceptés', () => {
         const game = new Game('solution', ['ssssssss']);

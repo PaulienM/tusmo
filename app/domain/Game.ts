@@ -1,12 +1,13 @@
 import {GameStatusEnum} from "./GameStatusEnum";
 import words from '../assets/filtered-words.json'
+import {Guess} from "./Guess";
 
 export class Game {
     static MAX_ATTEMPTS = 6;
 
     solution: string;
     status: GameStatusEnum = GameStatusEnum.NOT_STARTED;
-    guesses: string[] = [];
+    guesses: Guess[] = [];
 
     constructor(solution: string, guesses: string[] = []) {
         this.solution = solution;
@@ -22,7 +23,7 @@ export class Game {
         if (words.indexOf(guess) === -1) {
             return;
         }
-        this.guesses.push(guess);
+        this.guesses.push(new Guess(this.solution, guess));
         this.status = GameStatusEnum.IN_PROGRESS;
         if (this.guesses.length >= Game.MAX_ATTEMPTS) {
             this.status = GameStatusEnum.LOST;
