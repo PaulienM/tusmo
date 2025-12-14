@@ -1,10 +1,15 @@
 # TUSMO
 
-## Instructions
+## Développement
 
 Lancer l'application en mode dev
 ```bash
 npm run dev
+```
+
+Lancer les tests
+```bash
+npm run test
 ```
 
 ## Les mots
