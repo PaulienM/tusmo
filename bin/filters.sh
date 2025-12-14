@@ -22,8 +22,8 @@ fi
 
 if [[ -n "$length" ]]; then
     # longueur exactement égale à $length
-    grep -E "^[a-zàâäéèêëîïôöùûüç]{${length}}$" "$file"
+    grep -E "^[a-z]{${length}}$" "$file"
 else
     # longueur >= 5 par défaut
-    grep -E "^[a-zàâäéèêëîïôöùûüç]{5,}$" "$file"
+    grep -E "^[a-z]{5,}$" "$file"
 fi
