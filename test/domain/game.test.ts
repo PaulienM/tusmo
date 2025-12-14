@@ -53,3 +53,52 @@ describe('Test de la validation des essais', () => {
         expect(game.guesses).length(0);
     })
 })
+
+describe('Test de l\'évolution du feedback', () => {
+    test('Le feedback de la partie additionne les lettres correctes de tous les essais', () => {
+        const game = new Game('solution', []);
+        expect(game.feedback).toMatchObject([
+            {letter: 's', found: false},
+            {letter: 'o', found: false},
+            {letter: 'l', found: false},
+            {letter: 'u', found: false},
+            {letter: 't', found: false},
+            {letter: 'i', found: false},
+            {letter: 'o', found: false},
+            {letter: 'n', found: false},
+        ])
+
+        game.addGuess('sobriete');
+        expect(game.feedback).toMatchObject([
+            {letter: 's', found: true},
+            {letter: 'o', found: true},
+            {letter: 'l', found: false},
+            {letter: 'u', found: false},
+            {letter: 't', found: false},
+            {letter: 'i', found: false},
+            {letter: 'o', found: false},
+            {letter: 'n', found: false},
+        ])
+
+        game.addGuess('salaires');
+        expect(game.feedback).toMatchObject([
+            {letter: 's', found: true},
+            {letter: 'o', found: true},
+            {letter: 'l', found: true},
+            {letter: 'u', found: false},
+            {letter: 't', found: false},
+            {letter: 'i', found: false},
+            {letter: 'o', found: false},
+            {letter: 'n', found: false},
+        ])
+    })
+
+    test('Les lettres mal placées sont ajoutées dans un tableau', () => {
+        const game = new Game('solution', []);
+        expect(game.wrongPositionLetters).length(0);
+        game.addGuess('sobriete');
+        expect(game.wrongPositionLetters).toMatchObject(['i', 't']);
+        game.addGuess('saligaud');
+        expect(game.wrongPositionLetters).toMatchObject(['i', 't', 'u']);
+    })
+})
