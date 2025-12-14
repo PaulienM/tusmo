@@ -43,4 +43,9 @@ describe('Test de la validation des essais', () => {
         const game = new Game('enseigne', ['écouteur']);
         expect(game.guesses).length(1);
     })
+    test('Tous les caractères sont mis en minuscule', () => {
+        const game = new Game('solution', ['SaboTage']);
+        expect(game.guesses).length(1);
+        expect(game.guesses).contain('sabotage');
+    })
 })

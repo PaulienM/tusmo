@@ -14,6 +14,7 @@ export class Game {
 
     public addGuess(guess: string): void {
         guess = guess.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        guess = guess.toLowerCase();
         if (this.solution[0] !== guess[0] || this.solution.length !== guess.length) {
             return;
         }
