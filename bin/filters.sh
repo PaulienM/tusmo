@@ -21,9 +21,17 @@ if [[ -n "$length" && ! "$length" =~ ^[0-9]+$ ]]; then
 fi
 
 if [[ -n "$length" ]]; then
-    # longueur exactement égale à $length
-    grep -E "^[a-z]{${length}}$" "$file"
+    pattern="^[a-z]{${length}}$"
 else
-    # longueur >= 5 par défaut
-    grep -E "^[a-z]{5,}$" "$file"
+    pattern="^[a-z]{5,}$"
 fi
+
+# Génération du JSON
+echo "["
+
+grep -E "$pattern" "$file" \
+| sed 's/"/\\"/g' \
+| sed 's/^/"/; s/$/"/' \
+| paste -sd "," -
+
+echo "]"

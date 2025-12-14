@@ -1,4 +1,4 @@
-import words from "../utils/words";
+import words from '../assets/filtered-words.json'
 
 export const useWordList = () => {
     const getWordByIndex = (index: number): string => {
