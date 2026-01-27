@@ -1,4 +1,6 @@
 <template>
+  <h1 v-if="game.status === GameStatusEnum.WON">C'est gagné ! 🎉</h1>
+  <h1 v-if="game.status === GameStatusEnum.LOST">C'est perdu ! 🙁</h1>
   <table>
     <tbody>
     <Row v-for="row in Game.MAX_ATTEMPTS" :length="word.length" :active="activeRow === (row - 1)"
@@ -11,14 +13,23 @@
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { Game } from "../domain/Game";
 import Row from "./Row.vue";
+import {GameStatusEnum} from "~/domain/GameStatusEnum";
 
 const props = defineProps<{
 	word: string;
 }>();
 
-const game = ref(new Game(props.word, ["couver", "crampe"]));
+const game = ref(new Game(props.word, []));
 
-const activeRow = computed(() => game.value.guesses.length);
+const activeRow: ComputedRef<number|null> = computed(() => {
+  if (game.value.status === GameStatusEnum.NOT_STARTED) {
+    return 0;
+  } else if (game.value.status === GameStatusEnum.IN_PROGRESS) {
+    return game.value.guesses.length;
+  } else {
+    return null;
+  }
+});
 
 const newGuess = ref(props.word[0]);
 
