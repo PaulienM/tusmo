@@ -34,6 +34,7 @@ button {
   padding: 2px 4px;
   margin: 8px;
   cursor: pointer;
+  font-size: 20px;
 
   &:not(.correct, .wrong-position) {
     background-color: transparent;

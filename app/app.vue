@@ -18,5 +18,6 @@ body {
   background-color: var(--background);
   color: var(--text);
   font-family: sans-serif;
+  font-size: 30px;
 }
 </style>
