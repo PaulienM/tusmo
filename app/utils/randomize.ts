@@ -1,12 +1,6 @@
 export default function srand(seed: number): () => number {
-	// Un générateur de nombres aléatoires basé sur la seed (algorithme Lehmer)
-	const m = 2 ** 32; // Un grand nombre (modulus)
-	const a = 1664525; // Un facteur multiplicatif
-	const c = 1013904223; // Une constante ajoutée
-
-	// Fonction pour obtenir un nombre aléatoire entre 0 et 1 basé sur la seed
-	return (): number => {
-		seed = (a * seed + c) % m;
-		return seed / m;
+	return function() {
+		seed = (seed * 9301 + 49297) % 233280; // Un générateur de nombres pseudo-aléatoires basé sur la graine
+		return seed / 233280.0; // Retourne un nombre entre 0 et 1
 	};
 }
