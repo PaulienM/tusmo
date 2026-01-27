@@ -22,7 +22,7 @@ export class Game {
 
 	public addGuess(guess: string): boolean {
 		guess = guess.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-		guess = guess.toLowerCase();
+		guess = guess.toUpperCase();
 		if (
 			this.solution[0] !== guess[0] ||
 			this.solution.length !== guess.length

@@ -23,13 +23,13 @@ fi
 if [[ -n "$length" ]]; then
     pattern="^[a-z]{${length}}$"
 else
-    pattern="^[a-z]{5,}$"
+    pattern="^[a-z]{6,10}$"
 fi
 
 # Génération du JSON
 echo "["
 
-grep -E "$pattern" "$file" \
+grep -E "$pattern" "$file" | tr '[:lower:]' '[:upper:]' \
 | sed 's/"/\\"/g' \
 | sed 's/^/"/; s/$/"/' \
 | paste -sd "," -
