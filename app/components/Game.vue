@@ -7,13 +7,15 @@
          :guess="game.guesses[row - 1]" :new-guess="newGuess"></Row>
     </tbody>
   </table>
+  <Keyboard @add-letter="addLetter" :correct-letters="game.keyboardFeedback.correct" :wrong-position-letters="game.keyboardFeedback.wrongPosition" :incorrect-letters="game.keyboardFeedback.incorrect"/>
 </template>
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import Keyboard from "~/components/Keyboard.vue";
+import { GameStatusEnum } from "~/domain/GameStatusEnum";
 import { Game } from "../domain/Game";
 import Row from "./Row.vue";
-import {GameStatusEnum} from "~/domain/GameStatusEnum";
 
 const props = defineProps<{
 	word: string;
@@ -21,14 +23,14 @@ const props = defineProps<{
 
 const game = ref(new Game(props.word, []));
 
-const activeRow: ComputedRef<number|null> = computed(() => {
-  if (game.value.status === GameStatusEnum.NOT_STARTED) {
-    return 0;
-  } else if (game.value.status === GameStatusEnum.IN_PROGRESS) {
-    return game.value.guesses.length;
-  } else {
-    return null;
-  }
+const activeRow: ComputedRef<number | null> = computed(() => {
+	if (game.value.status === GameStatusEnum.NOT_STARTED) {
+		return 0;
+	} else if (game.value.status === GameStatusEnum.IN_PROGRESS) {
+		return game.value.guesses.length;
+	} else {
+		return null;
+	}
 });
 
 const newGuess = ref(props.word[0]);
@@ -54,6 +56,12 @@ const onKey = (event: KeyboardEvent) => {
 		}
 	}
 };
+
+const addLetter = (letter: string) => {
+	if (newGuess.value.length < props.word.length) {
+		newGuess.value += letter;
+	}
+};
 </script>
 
 <style>
@@ -64,13 +72,13 @@ td {
   text-align: center;
   text-transform: capitalize;
   font-weight: bolder;
+}
 
-  &.correct {
-    background-color: var(--correct);
-  }
+.correct {
+  background-color: var(--correct);
+}
 
-  &.wrong-position {
-    background-color: var(--wrong-position);
-  }
+.wrong-position {
+  background-color: var(--wrong-position);
 }
 </style>

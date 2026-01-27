@@ -59,4 +59,42 @@ export class Game {
 
 		return true;
 	}
+
+	get keyboardFeedback(): {
+		incorrect: string[];
+		wrongPosition: string[];
+		correct: string[];
+	} {
+		const correct = this.guesses.flatMap((guess) =>
+			guess.feedback
+				.filter((feedback) => feedback.status === GuessLetterStatusEnum.CORRECT)
+				.map((feedback) => feedback.letter),
+		);
+		const wrongPosition = this.guesses
+			.flatMap((guess) =>
+				guess.feedback
+					.filter(
+						(feedback) =>
+							feedback.status === GuessLetterStatusEnum.WRONG_POSITION,
+					)
+					.map((feedback) => feedback.letter),
+			)
+			.filter(
+				(wrongPositionLetter) => correct.indexOf(wrongPositionLetter) === -1,
+			);
+		const incorrect = this.guesses
+			.flatMap((guess) =>
+				guess.feedback
+					.filter(
+						(feedback) => feedback.status === GuessLetterStatusEnum.INCORRECT,
+					)
+					.map((feedback) => feedback.letter),
+			)
+			.filter(
+				(incorrect) =>
+					correct.indexOf(incorrect) === -1 &&
+					wrongPosition.indexOf(incorrect) === -1,
+			);
+		return { incorrect, wrongPosition, correct };
+	}
 }
