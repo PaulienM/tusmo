@@ -60,15 +60,17 @@ const onKey = (event: KeyboardEvent) => {
 td {
   width: 2em;
   height: 2em;
-  border: 1px solid black;
+  border: 1px solid var(--text);
   text-align: center;
+  text-transform: capitalize;
+  font-weight: bolder;
 
   &.correct {
-    background-color: red;
+    background-color: var(--correct);
   }
 
   &.wrong-position {
-    background-color: yellow;
+    background-color: var(--wrong-position);
   }
 }
 </style>
